@@ -781,4 +781,29 @@ if (UNIX AND NOT APPLE)
     add_custom_target(uninstall
         COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake)
   endif (Caffe_FOUND)
+elseif(WIN32)
+    # Install the headers
+    install(DIRECTORY ${CMAKE_SOURCE_DIR}/include/openpose DESTINATION include)
+    install(EXPORT OpenPose DESTINATION lib/OpenPose)
+
+    # Compute installation prefix relative to this file
+    configure_file(
+      ${CMAKE_SOURCE_DIR}/cmake/OpenPoseConfig.cmake.in
+      ${CMAKE_BINARY_DIR}/cmake/OpenPoseConfig.cmake @ONLY)
+      
+    install(FILES ${CMAKE_BINARY_DIR}/cmake/OpenPoseConfig.cmake
+      DESTINATION lib/OpenPose)
+
+    # Install 3rdparty libraries
+    file(GLOB_RECURSE EXT_DLLS  ${FIND_LIB_PREFIX}/*.dll)
+    install(FILES ${EXT_DLLS}  DESTINATION bin)
+
+    # Uninstall target
+    configure_file(
+      "${CMAKE_SOURCE_DIR}/cmake/cmake_uninstall.cmake.in"
+      "${CMAKE_BINARY_DIR}/cmake_uninstall.cmake"
+      IMMEDIATE @ONLY)
+
+    add_custom_target(uninstall
+        COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake)
 endif (UNIX AND NOT APPLE)

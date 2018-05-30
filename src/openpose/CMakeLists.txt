@@ -72,4 +72,12 @@ if (UNIX AND NOT APPLE)
       RUNTIME DESTINATION bin
       LIBRARY DESTINATION lib
       ARCHIVE DESTINATION lib/openpose)
+elseif(WIN32)
+
+  install(TARGETS openpose
+      EXPORT OpenPose
+      RUNTIME DESTINATION bin
+      LIBRARY DESTINATION lib
+      ARCHIVE DESTINATION lib/openpose)
+
 endif (UNIX AND NOT APPLE)
