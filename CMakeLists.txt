@@ -796,7 +796,13 @@ elseif(WIN32)
 
     # Install 3rdparty libraries
     file(GLOB_RECURSE EXT_DLLS  ${FIND_LIB_PREFIX}/*.dll)
+    file(GLOB_RECURSE EXT_LIBS  ${FIND_LIB_PREFIX}/*.lib)
     install(FILES ${EXT_DLLS}  DESTINATION bin)
+    install(FILES ${EXT_LIBS}  DESTINATION lib)
+    
+    install(DIRECTORY ${FIND_LIB_PREFIX}/caffe/include/ DESTINATION include)
+    install(DIRECTORY ${FIND_LIB_PREFIX}/caffe/include2/ DESTINATION include)
+    install(DIRECTORY ${FIND_LIB_PREFIX}/opencv/include/ DESTINATION include)
 
     # Uninstall target
     configure_file(
