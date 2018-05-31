@@ -813,3 +813,6 @@ elseif(WIN32)
     add_custom_target(uninstall
         COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake)
 endif (UNIX AND NOT APPLE)
+
+# Install models
+install(DIRECTORY ${CMAKE_SOURCE_DIR}/models DESTINATION bin)
